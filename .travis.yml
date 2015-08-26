@@ -13,6 +13,11 @@ node_js:
   - '4.0'
   - '4.2'
 
+matrix:
+  include:
+    - node_js: '4.2'
+      addons: {mariadb: '10.1'}
+
 sudo: false
 
 before_install:
@@ -21,7 +26,7 @@ before_install:
   - "test $TRAVIS_NODE_VERSION != '0.8' || npm rm --save-dev istanbul"
 
 before_script:
-- "mysql -e 'create database node_mysql;'"
+- "mysql -e 'create database node_mysql; select version();'"
 
 script:
   # Run test script, depending on istanbul install
